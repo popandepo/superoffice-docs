@@ -562,3 +562,17 @@ The finished tool should provide a significantly better developer experience tha
 
 The resulting documentation should effectively become a replacement for the official CRMScript documentation site while remaining fully generated from the original source files.
 
+## Quick start
+
+From repo root:
+
+```powershell
+dotnet restore .\tools\CrmScriptDocGenerator\CrmScriptDocGenerator.csproj
+dotnet run --project .\tools\CrmScriptDocGenerator\CrmScriptDocGenerator.csproj -- --markdown .\tools\CrmScriptDocGenerator\SampleData\markdown --yaml .\tools\CrmScriptDocGenerator\SampleData\yaml --output .\tools\CrmScriptDocGenerator\SampleData\output
+```
+
+Run against real docs (paths from this repository):
+
+```powershell
+dotnet run --project .\tools\CrmScriptDocGenerator\CrmScriptDocGenerator.csproj -- --markdown .\docs\en\automation\crmscript --yaml .\api\reference\crmscript --output .\tools\CrmScriptDocGenerator\output
+```

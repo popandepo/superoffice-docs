@@ -1,0 +1,39 @@
+items:
+  - uid: CRMScript.Native.EventData
+    id: EventData
+    name: EventData
+    fullName: CRMScript.Native.EventData
+    type: Class
+    summary: Accesses context information for events.
+    remarks: <p>Available in handlers and pipeline scripts.</p>
+    so:
+      version: "10.5"
+      intellisense: EventData
+
+  - uid: CRMScript.Native.EventData.getInputValue(String)
+    id: getInputValue
+    name: getInputValue(String)
+    fullName: CRMScript.Native.EventData.getInputValue(String)
+    type: Method
+    summary: Returns the value of a specified input field.
+    remarks: <p>Use this for request payload values.</p>
+    syntax:
+      content: String getInputValue(String field)
+      parameters:
+        - id: field
+          type: CRMScript.Global.String
+      return:
+        type: CRMScript.Global.String
+    parameters:
+      - id: field
+        type: CRMScript.Global.String
+        description: Input field key.
+    return:
+      type: CRMScript.Global.String
+    so:
+      version: "10.5"
+      intellisense: getInputValue
+references:
+  - uid: CRMScript.Global.String
+    name: String
+
