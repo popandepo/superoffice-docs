@@ -42,12 +42,17 @@ internal static class NameHelpers
             return trimmed;
         }
 
-        var maybeMember = trimmed[(lastDot + 1)..];
-        var parent = trimmed[..lastDot];
-        if (char.IsUpper(maybeMember.FirstOrDefault()))
+        var tail = trimmed[(lastDot + 1)..];
+        var isClassLike = string.Equals(item.Type, "Class", StringComparison.OrdinalIgnoreCase) ||
+                          string.Equals(item.Type, "Struct", StringComparison.OrdinalIgnoreCase) ||
+                          string.Equals(item.Type, "Interface", StringComparison.OrdinalIgnoreCase) ||
+                          string.Equals(item.Type, "Enum", StringComparison.OrdinalIgnoreCase);
+        if (isClassLike)
         {
-            return maybeMember;
+            return tail;
         }
+
+        var parent = trimmed[..lastDot];
 
         var classDot = parent.LastIndexOf('.');
         return classDot >= 0 ? parent[(classDot + 1)..] : parent;

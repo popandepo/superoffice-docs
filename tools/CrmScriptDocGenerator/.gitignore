@@ -1,5 +1,5 @@
 bin/
 obj/
-output/
-SampleData/output/
+/output/
+/SampleData/output/
 

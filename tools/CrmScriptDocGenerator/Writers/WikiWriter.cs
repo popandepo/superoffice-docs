@@ -1,4 +1,5 @@
 using System.Text;
+using System.Linq;
 using CrmScriptDocGenerator.Models;
 
 namespace CrmScriptDocGenerator.Writers;
@@ -45,7 +46,9 @@ public sealed class WikiWriter
             foreach (var member in classDoc.Members)
             {
                 var summary = string.IsNullOrWhiteSpace(member.Summary) ? "" : member.Summary.Replace("\n", " ");
-                sb.AppendLine($"| `{member.MemberName}` | {summary} |");
+                var heading = GetMemberHeading(member);
+                var anchor = GetMemberAnchor(member);
+                sb.AppendLine($"| [`{heading}`](#{anchor}) | {summary} |");
             }
 
             sb.AppendLine();
@@ -53,7 +56,11 @@ public sealed class WikiWriter
 
         foreach (var member in classDoc.Members)
         {
-            sb.AppendLine($"## {member.MemberName}()");
+            var heading = GetMemberHeading(member);
+            var anchor = GetMemberAnchor(member);
+            sb.AppendLine($"<a id=\"{anchor}\"></a>");
+            sb.AppendLine();
+            sb.AppendLine($"## {heading}");
             sb.AppendLine();
 
             if (!string.IsNullOrWhiteSpace(member.Summary))
@@ -131,6 +138,21 @@ public sealed class WikiWriter
         }
 
         return sb.ToString();
+    }
+
+    private static string GetMemberHeading(ApiItem member)
+    {
+        return string.IsNullOrWhiteSpace(member.Name) ? $"{member.MemberName}()" : member.Name;
+    }
+
+    private static string GetMemberAnchor(ApiItem member)
+    {
+        var source = string.IsNullOrWhiteSpace(member.Uid) ? member.MemberName : member.Uid;
+        var chars = source
+            .ToLowerInvariant()
+            .Select(c => char.IsLetterOrDigit(c) ? c : '-')
+            .ToArray();
+        return $"m-{new string(chars).Trim('-')}";
     }
 }
 

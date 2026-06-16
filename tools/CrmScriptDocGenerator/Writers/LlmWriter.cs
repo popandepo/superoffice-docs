@@ -1,4 +1,5 @@
 using System.Text;
+using System.Linq;
 using CrmScriptDocGenerator.Models;
 
 namespace CrmScriptDocGenerator.Writers;
